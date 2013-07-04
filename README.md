@@ -4,6 +4,10 @@ Kegberry: Kegbot for Raspberry Pi
 Overview
 --------
 
+Kegberry is a Kegbot server for your Raspberry Pi.  Since [Kegbot Server](https://github.com/Kegbot/kegbot)
+is a Python/Django application, most of the work here is simply glue to automate
+and simplify running it on Raspbian.
+
 Main repository: https://github.com/Kegbot/kegberry
 
 Home page: http://kegbot.org/
