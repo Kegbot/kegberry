@@ -26,7 +26,7 @@ info() {
 }
 
 do_apt_get() {
-  sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq $@"
+  sudo bash -c "echo DEBIAN_FRONTEND=noninteractive apt-get -yq $*"
 }
 
 install_kegberry() {
