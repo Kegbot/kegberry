@@ -1,7 +1,5 @@
 # Kegberry: Kegbot for Raspberry Pi
 
-## Overview
-
 Kegberry turns your Raspberry Pi into a Kegbot Kegerator Server.
 
 Using the [Kegbot Server](https://github.com/Kegbot/kegbot) software,
@@ -14,11 +12,15 @@ For more information about Kegbot, see the
 
 ## Instructions
 
-### 0. Prerequisites
+### Prerequisites
 
 If you have a freshly installed Raspbian device, you're probably
 good to go.
 
+* **Kegbot Hardware**: Kegberry only acts as a Kegbot Server right now;
+  you'll still need the rest of the Kegbot system -- a flow meter, controller
+  board, and Android tablet -- in order to collect and report data.  See
+  [Get Kegbot](https://kegbot.org/get-kegbot) for an overview.
 * **Dedicated Raspberry Pi**: The installer script assumes you'll be dedicating
   the target RPi to Kegberry; for example, it replaces the default nginx
   configuration with Kegbot's.
@@ -35,7 +37,7 @@ the moment, Kegberry is just a shortcut.  Consult the
 [full installation guide](https://kegbot.org/docs/server/) instead.
 
 
-### 1. Install Kegberry
+### Install Kegberry
 
 Connect to your pi and run the following script:
 
@@ -47,7 +49,7 @@ Sit back and relax as [kegbot-server](https://github.com/Kegbot/kegbot-server),
 MySQL, and all related dependencies are installed and configured for you.
 
 
-### 2. Configure Kegbot Server
+### Configure Kegbot Server
 
 Once Kegberry has finished installing your system, you're ready to sign in
 and configure your shiny new Kegbot Server.
