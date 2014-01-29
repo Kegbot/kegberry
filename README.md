@@ -9,10 +9,6 @@ your RPi can manage your beer taps, record drinks, control access, and more.
 For more information about Kegbot, see the
 [Kegbot home page](https://kegbot.org).
 
-Since [Kegbot Server](https://github.com/Kegbot/kegbot) is a Python/Django
-application, most of the work here is simply glue to automate
-and simplify running it on Raspbian.
-
 **Main Repository:** https://github.com/Kegbot/kegberry
 
 
@@ -23,29 +19,20 @@ and simplify running it on Raspbian.
 If you have a freshly installed Raspbian device, you're probably
 good to go.
 
-#### Dedicated Raspberry Pi
+* **Dedicated Raspberry Pi**: The installer script assumes you'll be dedicating
+  the target RPi to Kegberry; for example, it replaces the default nginx
+  configuration with Kegbot's.
+* **Raspbian**: These instructions assume you've installed a fresh copy of
+  [Raspbian](http://www.raspbian.org/) on your RPi.  These instructions have
+  been tested with version **2014-01-07**
+  ([installation instructions](http://elinux.org/RPi_Easy_SD_Card_Setup)).
+* **pi user**: Configuration files assume we'll be running Kegbot as
+  the `pi` user. If you'd prefer to use a different account, you'll need
+  to make these adjustments after installing Kegberry.
 
-Obviously, you need a Rasberry Pi.
-
-The installer script assumes you'll be dedicating this device to Kegberry;
-for example, it replaces the default nginx configuration with Kegbot's.
-(If you need to install Kegbot Server on a shared RPi for some reason,
-follow the normal [installation guide](https://kegbot.org/docs/server/).)
-
-#### Raspbian 2014-01-07
-
-These instructions assume you've installed a fresh copy of
-[Raspbian](http://www.raspbian.org/) on your RPi.  These instructions have
-been tested with version **2014-01-07**.
-
-Consult the [installation instructions](http://elinux.org/RPi_Easy_SD_Card_Setup)
-if you haven't already installed Raspbian.
-
-#### `pi` User
-
-Configuration files assume we'll be running Kegbot as the `pi` user.
-If you'd prefer to use a different account, you'll need to make these
-adjustments after installing Kegberry.
+If your setup doesn't quite match these requirements, don't worry; at
+the moment, Kegberry is just a shortcut.  Consult the
+[full installation guide](https://kegbot.org/docs/server/) instead.
 
 
 ### 1. Install Kegberry
