@@ -53,7 +53,7 @@ adjustments after installing Kegberry.
 Connect to your pi and run the following script:
 
 ```
-$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/src/install.sh)"
+$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/src/install.sh)"
 ```
 
 Sit back and relax as [kegbot-server](https://github.com/Kegbot/kegbot-server),
