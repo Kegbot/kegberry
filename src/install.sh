@@ -7,9 +7,11 @@ set -x
 
 ### Configuration section
 
-REQUIRED_PACKAGES="nginx-light libjpeg-dev supervisor python-setuptools python-dev libsqlite3-dev libmysqlclient-dev mysql-server memcached"
+REQUIRED_PACKAGES="nginx-light libjpeg-dev supervisor python-setuptools python-dev libsqlite3-dev libmysqlclient-dev mysql-server memcached redis-server"
 KEGBERRY_DIR="/etc/kegberry"
+
 KEGBOT_PIP_NAME="https://nodeload.github.com/Kegbot/kegbot/zip/master"
+PYCORE_PIP_NAME="https://nodeload.github.com/Kegbot/kegbot-pycore/zip/master"
 
 NGINX_CONF_URL="https://raw.github.com/Kegbot/kegberry/master/system-files/kegbot-nginx.conf"
 SUPERVISOR_CONF_URL="https://raw.github.com/Kegbot/kegberry/master/system-files/kegbot-supervisor.conf"
@@ -43,11 +45,20 @@ install_kegberry() {
   sudo easy_install-2.7 pip
 
   info "Installing Kegbot Server ..."
-  sudo pip install ${KEGBOT_PIP_NAME}
+  sudo pip install -U ${KEGBOT_PIP_NAME}
+
+  info "Installing Kegbot Pycore ..."
+  sudo pip install -U ${PYCORE_PIP_NAME}
 
   info "Configuring Kegbot Server ..."
   mysqladmin -u root create kegbot || true
   setup-kegbot.py --db_type=mysql --interactive=false
+
+  info "Generating API key ..."
+  api_key=$(kegbot create_api_key "Kegberry")
+  mkdir -p /home/pi/.kegbot/
+  echo "--api_url=http://localhost/api/" > /home/pi/.kegbot/pycore-flags.txt
+  echo "--api_key=${api_key}" >> /home/pi/.kegbot/pycore-flags.txt
 
   info "Installing configs ..."
   sudo bash -c "curl -o /etc/nginx/sites-available/default ${NGINX_CONF_URL}"
