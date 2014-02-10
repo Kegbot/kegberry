@@ -7,7 +7,7 @@ set -x
 
 ### Configuration section
 
-REQUIRED_PACKAGES="nginx-light supervisor python-setuptools python-dev libsqlite3-dev libmysqlclient-dev mysql-server memcached"
+REQUIRED_PACKAGES="nginx-light libjpeg-dev supervisor python-setuptools python-dev libsqlite3-dev libmysqlclient-dev mysql-server memcached"
 KEGBERRY_DIR="/etc/kegberry"
 KEGBOT_PIP_NAME="https://nodeload.github.com/Kegbot/kegbot/zip/master"
 
