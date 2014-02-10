@@ -46,7 +46,8 @@ install_kegberry() {
   sudo pip install ${KEGBOT_PIP_NAME}
 
   info "Configuring Kegbot Server ..."
-  setup-kegbot.py --interactive=false
+  mysqladmin -u root create kegbot || true
+  setup-kegbot.py --db_type=mysql --interactive=false
 
   info "Installing configs ..."
   sudo bash -c "curl -o /etc/nginx/sites-available/default ${NGINX_CONF_URL}"
