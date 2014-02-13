@@ -17,10 +17,10 @@ For more information about Kegbot, see the
 If you have a freshly installed Raspbian device, you're probably
 good to go.
 
-* **Kegbot Hardware**: Kegberry only acts as a Kegbot Server right now;
-  you'll still need the rest of the Kegbot system -- a flow meter, controller
-  board, and Android tablet -- in order to collect and report data.  See
-  [Get Kegbot](https://kegbot.org/get-kegbot) for an overview.
+* **Kegbot Hardware**: You'll need the Kegbot hardware -- a flow meter and a
+  controller board -- in order to collect and report data.  Support for using
+  the Pi's GPIOs instead of a kegboard is [coming soon](https://github.com/Kegbot/kegberry/issues/6).
+  See [Get Kegbot](https://kegbot.org/get-kegbot) for an overview of the hardware.
 * **Dedicated Raspberry Pi**: The installer script assumes you'll be dedicating
   the target RPi to Kegberry; for example, it replaces the default nginx
   configuration with Kegbot's.
