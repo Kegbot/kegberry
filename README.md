@@ -1,9 +1,18 @@
-# Kegberry: Kegbot for Raspberry Pi
+# Kegberry: Complete Beer Tap Monitoring for Raspberry Pi
 
-Kegberry turns your Raspberry Pi into a Kegbot Kegerator Server.
+Kegberry turns your Raspberry Pi into an complete beer tap monitoring
+system.
 
-Using the [Kegbot Server](https://github.com/Kegbot/kegbot) software,
-your RPi can manage your beer taps, record drinks, control access, and more.
+Kegberry is based on and includes several opensource projects:
+
+* [Kegbot Server](https://github.com/Kegbot/kegbot-server): Web user interface,
+  database backend, API.
+* [Kegbot Pycore](https://github.com/Kegbot/kegbot-pycore): Flow monitoring
+  and sensing loop.
+* [Kegboard](https://github.com/Kegbot/kegboard): Arduino-based firmware and
+  schematics for flow sensing, temperature sensing (DS18B20), and
+  RFID or OneWire-based authentication tokens.
+
 For more information about Kegbot, see the
 [Kegbot home page](https://kegbot.org).
 
@@ -56,6 +65,8 @@ and configure your shiny new Kegbot Server.
 
 Navigate to your RPi's IP address in your browser and you should see the
 setup wizard.
+
+Once you complete setup, reboot.
 
 
 ## Troubleshooting
