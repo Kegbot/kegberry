@@ -10,8 +10,8 @@ set -x
 REQUIRED_PACKAGES="nginx-light libjpeg-dev supervisor python-setuptools python-dev libsqlite3-dev libmysqlclient-dev mysql-server memcached redis-server"
 KEGBERRY_DIR="/etc/kegberry"
 
-KEGBOT_PIP_NAME="https://nodeload.github.com/Kegbot/kegbot/zip/master"
-PYCORE_PIP_NAME="https://nodeload.github.com/Kegbot/kegbot-pycore/zip/master"
+KEGBOT_PIP_NAME="kegbot"
+PYCORE_PIP_NAME="kegbot-pycore"
 
 NGINX_CONF_URL="https://raw.github.com/Kegbot/kegberry/master/system-files/kegbot-nginx.conf"
 SUPERVISOR_CONF_URL="https://raw.github.com/Kegbot/kegberry/master/system-files/kegbot-supervisor.conf"
