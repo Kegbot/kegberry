@@ -50,6 +50,9 @@ install_kegberry() {
   info "Installing Kegbot Pycore ..."
   sudo pip install -U ${PYCORE_PIP_NAME}
 
+  info "Loading MySQL timezones ..."
+  mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
+
   info "Configuring Kegbot Server ..."
   mysqladmin -u root create kegbot || true
   setup-kegbot.py --db_type=mysql --interactive=false
