@@ -1,7 +1,22 @@
 # Kegberry: Complete Beer Tap Monitoring for Raspberry Pi
 
 Kegberry turns your Raspberry Pi into an complete beer tap monitoring
-system.
+system!
+
+**Main Repository:** https://github.com/Kegbot/kegberry
+
+## Quickstart
+
+Impatient? Try this!
+
+```
+$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/src/install.sh)"
+```
+
+Read on for more detail.
+
+
+## Background
 
 Kegberry is based on and includes several opensource projects:
 
@@ -16,10 +31,7 @@ Kegberry is based on and includes several opensource projects:
 For more information about Kegbot, see the
 [Kegbot home page](https://kegbot.org).
 
-**Main Repository:** https://github.com/Kegbot/kegberry
-
-
-## Instructions
+## Install Guide
 
 ### Prerequisites
 
