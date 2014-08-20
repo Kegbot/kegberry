@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Kegberry : Keg Monitoring and Digital Taplist for Raspberry Pi">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Kegberry</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Kegbot/kegberry">View on GitHub</a>
+
+          <h1 id="project_title">Kegberry</h1>
+          <h2 id="project_tagline">Keg Monitoring and Digital Taplist for Raspberry Pi</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Kegbot/kegberry/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Kegbot/kegberry/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="kegberry-monitor-your-beer-kegs" class="anchor" href="#kegberry-monitor-your-beer-kegs"><span class="octicon octicon-link"></span></a>Kegberry: Monitor Your Beer Kegs</h1>
+
+<p>Kegberry turns your Raspberry Pi into an complete beer tap monitoring
+system!</p>
+
+<p><strong>Main Repository:</strong> <a href="https://github.com/Kegbot/kegberry">https://github.com/Kegbot/kegberry</a></p>
+
+<h2>
+<a name="quickstart" class="anchor" href="#quickstart"><span class="octicon octicon-link"></span></a>Quickstart</h2>
+
+<p>Impatient? Try this!</p>
+
+<pre><code>$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/src/install.sh)"
+</code></pre>
+
+<p>Read on for more detail.</p>
+
+<h2>
+<a name="background" class="anchor" href="#background"><span class="octicon octicon-link"></span></a>Background</h2>
+
+<p>Kegberry is based on and includes several opensource projects:</p>
+
+<ul>
+<li>
+<a href="https://github.com/Kegbot/kegbot-server">Kegbot Server</a>: Web user interface,
+database backend, API.</li>
+<li>
+<a href="https://github.com/Kegbot/kegbot-pycore">Kegbot Pycore</a>: Flow monitoring
+and sensing loop.</li>
+<li>
+<a href="https://github.com/Kegbot/kegboard">Kegboard</a>: Arduino-based firmware and
+schematics for flow sensing, temperature sensing (DS18B20), and
+RFID or OneWire-based authentication tokens.</li>
+</ul><p>For more information about Kegbot, see the
+<a href="https://kegbot.org">Kegbot home page</a>.</p>
+
+<h2>
+<a name="install-guide" class="anchor" href="#install-guide"><span class="octicon octicon-link"></span></a>Install Guide</h2>
+
+<h3>
+<a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h3>
+
+<p>If you have a freshly installed Raspbian device, you're probably
+good to go.</p>
+
+<ul>
+<li>
+<strong>Kegbot Hardware</strong>: You'll need the Kegbot hardware -- a flow meter and a
+controller board -- in order to collect and report data.  Support for using
+the Pi's GPIOs instead of a kegboard is <a href="https://github.com/Kegbot/kegberry/issues/6">coming soon</a>.
+See <a href="https://kegbot.org/get-kegbot">Get Kegbot</a> for an overview of the hardware.</li>
+<li>
+<strong>Dedicated Raspberry Pi</strong>: The installer script assumes you'll be dedicating
+the target RPi to Kegberry; for example, it replaces the default nginx
+configuration with Kegbot's.</li>
+<li>
+<strong>Raspbian</strong>: These instructions assume you've installed a fresh copy of
+<a href="http://www.raspbian.org/">Raspbian</a> on your RPi.  These instructions have
+been tested with version <strong>2014-01-07</strong>
+(<a href="http://elinux.org/RPi_Easy_SD_Card_Setup">installation instructions</a>).</li>
+<li>
+<strong>pi user</strong>: Configuration files assume we'll be running Kegbot as
+the <code>pi</code> user. If you'd prefer to use a different account, you'll need
+to make these adjustments after installing Kegberry.</li>
+</ul><p>If your setup doesn't quite match these requirements, don't worry; at
+the moment, Kegberry is just a shortcut.  Consult the
+<a href="https://kegbot.org/docs/server/">full installation guide</a> instead.</p>
+
+<h3>
+<a name="install-kegberry" class="anchor" href="#install-kegberry"><span class="octicon octicon-link"></span></a>Install Kegberry</h3>
+
+<p>Connect to your pi and run the following script:</p>
+
+<pre><code>$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/src/install.sh)"
+</code></pre>
+
+<p>Sit back and relax as <a href="https://github.com/Kegbot/kegbot-server">kegbot-server</a>,
+MySQL, and all related dependencies are installed and configured for you.</p>
+
+<h3>
+<a name="configure-kegbot-server" class="anchor" href="#configure-kegbot-server"><span class="octicon octicon-link"></span></a>Configure Kegbot Server</h3>
+
+<p>Once Kegberry has finished installing your system, you're ready to sign in
+and configure your shiny new Kegbot Server.</p>
+
+<p>Navigate to your RPi's IP address in your browser and you should see the
+setup wizard.</p>
+
+<p>Once you complete setup, reboot.</p>
+
+<h2>
+<a name="troubleshooting" class="anchor" href="#troubleshooting"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
+
+<p>To report a problem, please use the
+<a href="https://github.com/Kegbot/kegberry/issues">Kegberry issue tracker</a>.</p>
+
+<h2>
+<a name="upgrading" class="anchor" href="#upgrading"><span class="octicon octicon-link"></span></a>Upgrading</h2>
+
+<h3>
+<a name="upgrading-kegbot-server" class="anchor" href="#upgrading-kegbot-server"><span class="octicon octicon-link"></span></a>Upgrading Kegbot Server</h3>
+
+<p>Upgrading <code>kegbot-server</code> on a Kegberry device follows the same steps as on
+any other Linux server.  See the
+<a href="https://kegbot.org/docs/server/upgrade-kegbot/">official upgrade docs</a> for more
+details.</p>
+
+<h3>
+<a name="upgrading-the-entire-kegberry-image" class="anchor" href="#upgrading-the-entire-kegberry-image"><span class="octicon octicon-link"></span></a>Upgrading the entire Kegberry image</h3>
+
+<p>Kegberry does not (yet) include a full-system updater.  To upgrade a device, we
+advise you to backup all data, install a new system image, and re-run the
+kegberry installer from scratch.</p>
+
+<h2>
+<a name="caveats" class="anchor" href="#caveats"><span class="octicon octicon-link"></span></a>Caveats</h2>
+
+<p>The RPi is an amazing device, but Kegbot Server was written to target machines
+with much greater computing resources.  You may find the server to be
+substantially slower than on a "real" machine.</p>
+
+<p>Kegberry currently does not provide any extra tools for backing up or restoring
+your server data.  You should make regular backups of your MySQL database and
+uploaded media (<code>~pi/kegbot-data/media</code>).</p>
+
+<p>Since Kegbot runs as the <code>pi</code> user, and since the <code>pi</code> user has <code>sudo</code> access
+in Raspbian, a vulnerability in the Kegbot server could lead to a compromise
+of the entire device.  You should run Kegbot as another user or remove
+<code>sudo</code> access if this is a concern for you.</p>
+
+<h2>
+<a name="license-and-copyright" class="anchor" href="#license-and-copyright"><span class="octicon octicon-link"></span></a>License and Copyright</h2>
+
+<p>All code is offered under the GPLv2 license, unless otherwise noted. Please see
+LICENSE.txt for the full license.</p>
+
+<p>All code and documentation are Copyright 2014 Bevbot LLC, unless
+otherwise noted.</p>
+
+<p>"Kegberry", "Kegbot", and the Kegbot logo are trademarks of Bevbot LLC;
+please don't reuse them without our permission.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Kegberry maintained by <a href="https://github.com/Kegbot">Kegbot</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-42206013-5");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
