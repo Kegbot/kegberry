@@ -49,9 +49,6 @@ good to go.
   [Raspbian](http://www.raspbian.org/) on your RPi.  These instructions have
   been tested with version **2014-01-07**
   ([installation instructions](http://elinux.org/RPi_Easy_SD_Card_Setup)).
-* **pi user**: Configuration files assume we'll be running Kegbot as
-  the `pi` user. If you'd prefer to use a different account, you'll need
-  to make these adjustments after installing Kegberry.
 
 If your setup doesn't quite match these requirements, don't worry; at
 the moment, Kegberry is just a shortcut.  Consult the
@@ -113,20 +110,31 @@ Kegberry currently does not provide any extra tools for backing up or restoring
 your server data.  You should make regular backups of your MySQL database and
 uploaded media (`~pi/kegbot-data/media`).
 
-Since Kegbot runs as the `pi` user, and since the `pi` user has `sudo` access
-in Raspbian, a vulnerability in the Kegbot server could lead to a compromise
-of the entire device.  You should run Kegbot as another user or remove
-`sudo` access if this is a concern for you.
+
+## News and Updates
+
+Join the [kegberry-announce](https://groups.google.com/forum/#!forum/kegberry-announce)
+mailing list to be informed of new releases.
+
+For release notes, see `CHANGELOG.md`.
 
 
 ## License and Copyright
 
-All code is offered under the GPLv2 license, unless otherwise noted. Please see
-LICENSE.txt for the full license.
-
 All code and documentation are Copyright 2014 Bevbot LLC, unless
 otherwise noted.
 
+Code is licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0),
+or in the file `LICENSE.txt`.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
 "Kegberry", "Kegbot", and the Kegbot logo are trademarks of Bevbot LLC;
 please don't reuse them without our permission.
-

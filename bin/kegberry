@@ -1,0 +1,7 @@
+#!/usr/bin/python
+
+from __future__ import absolute_import
+from kegberry import app
+
+app = app.KegberryApp()
+app.run()
