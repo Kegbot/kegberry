@@ -47,8 +47,8 @@ gflags.DEFINE_string('mysql_user', 'root',
 gflags.DEFINE_string('mysql_password', '',
     'Password for the MySQL user, if any.')
 
-gflags.DEFINE_boolean('skip_package_update', False,
-    'If set, skips "apt-get update/upgrade" during install/upgrade.')
+gflags.DEFINE_boolean('upgrade_system_packages', False,
+    'If set, performs "apt-get upgrade" during install/upgrade.')
 
 gflags.DEFINE_string('kegbot_server_package', 'kegbot==1.0.1',
     '(Advanced use only.) Version of Kegbot Server to install.')
@@ -206,11 +206,11 @@ class KegberryApp(object):
             print ' (Tried {})'.format(status_file)
 
     def _update_packages(self):
-        if not FLAGS.skip_package_update:
-            logger.info('Updating package list ...')
-            run_command('sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq update"')
+        logger.info('Updating package list ...')
+        run_command('sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq update"')
 
-            logger.info('Upgrading packages ...')
+        if FLAGS.upgrade_system_packages:
+            logger.info('Upgrading packages, this may take a while ...')
             run_command('sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade"')
 
         logger.info('Installing required packages ...')
@@ -251,7 +251,7 @@ class KegberryApp(object):
             sys.exit(1)
         run_as_kegberry('if [ ! -e {} ]; then {} {}; fi'.format(virtualenv, venv, virtualenv))
 
-        logger.info('Installing python packages ...')
+        logger.info('Installing python packages, this may take a while ...')
         run_in_virtualenv('pip install {} {}'.format(
             FLAGS.kegbot_server_package, FLAGS.kegbot_pycore_package))
 
