@@ -107,7 +107,7 @@ def get_version():
         return '0.0.0'
 
 
-def run_command(cmd, fail_silently=False):
+def run_command(cmd, fail_silently=False, call=False):
     logger.debug('Running command: {}'.format(cmd))
     if FLAGS.fake:
         return 0
@@ -115,9 +115,15 @@ def run_command(cmd, fail_silently=False):
         path = os.environ['PATH']
         logger.debug('PATH: {}'.format(path))
         logger.debug(' CMD: {}'.format(cmd))
-        return subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True,
+        if call:
+            fn = subprocess.call
+        else:
+            fn = subprocess.check_output
+        return fn(cmd, stderr=subprocess.STDOUT, shell=True,
             env={'PATH': path})
     except subprocess.CalledProcessError as e:
+        if call:
+            return
         if not fail_silently:
             print e.output
             print ''
@@ -130,7 +136,7 @@ def run_command(cmd, fail_silently=False):
 def run_as_kegberry(cmd, **kwargs):
     cmd = cmd.replace('"', '\\"')
     wrapped = 'sudo su -l {} -c "{}"'.format(FLAGS.kegberry_user, cmd)
-    return run_command(wrapped, kwargs)
+    return run_command(wrapped, **kwargs)
 
 
 def run_in_virtualenv(cmd, **kwargs):
@@ -187,7 +193,7 @@ class KegberryApp(object):
             self.help('Error: command does not exist', exit=1)
 
         print_banner()
-        command_fn(args=args)
+        command_fn(*args)
 
     def help(self, error=None, exit=None):
         """Prints help information."""
@@ -198,7 +204,7 @@ class KegberryApp(object):
             print 'Exiting ...'
             sys.exit(exit)
 
-    def status(self, args=None):
+    def status(self, *args):
         status_file = os.path.join(FLAGS.kegberry_home, STATUS_FILENAME)
         print 'App version: {}'.format(get_version())
         if not os.path.exists(status_file):
@@ -217,7 +223,7 @@ class KegberryApp(object):
         run_command('sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq install {}"'.format(
             ' '.join(REQUIRED_PACKAGES)))
 
-    def install(self, args=None):
+    def install(self, *args):
         """Performs an initial Kegberry install."""
         self._update_packages()
 
@@ -287,7 +293,7 @@ class KegberryApp(object):
         run_command('sudo bash -c "supervisorctl reload"')
         run_command('sudo bash -c "service nginx restart"')
 
-    def upgrade(self, args=None):
+    def upgrade(self, *args):
         logger.info('Checking for `kegberry` command update')
         output = run_command('sudo bash -c "pip install -U kegberry"')
         if 'already up-to-date' in output[0]:
@@ -297,7 +303,11 @@ class KegberryApp(object):
             logger.info('Please run "kegberry upgrade" again.')
             return
 
-    def delete(self, args=None):
+    def kegbot(self, *args):
+        cmd = 'kegbot {}'.format(' '.join(args))
+        return run_in_virtualenv(cmd, call=True)
+
+    def delete(self, *args):
         confirm = raw_input('REALLY delete all kegberry data? This is irreversible. Type YES: ')
         if confirm.strip() != 'YES':
             print 'Delete aborted.'
