@@ -14,16 +14,17 @@
 
 """Kegberry tool: Kegbot installer for Raspberry Pi."""
 
+from contextlib import closing
+import getpass
+import gflags
 import logging
 import os
-import sys
-import gflags
 import pkg_resources
 import pwd
 import random
 import subprocess
+import sys
 import tempfile
-from contextlib import closing
 
 from kegberry import templates
 
@@ -58,6 +59,9 @@ gflags.DEFINE_string('kegbot_pycore_package', 'kegbot-pycore==1.1.3',
 
 gflags.DEFINE_boolean('fake', False,
     '(Advanced use only.) If true, external commands are not run.')
+
+gflags.DEFINE_boolean('allow_root', False,
+    '(Advanced use only.) DANGEROUS. Run kegberry command as root user.')
 
 BANNER = r"""
      oOOOOOo
@@ -172,7 +176,7 @@ class KegberryApp(object):
         try:
             extra_argv = FLAGS(sys.argv)[1:]
         except gflags.FlagsError, e:
-            self.help(error=e, exit=1)
+            self._usage(error=e, exit=1)
         if FLAGS.verbose:
             level = logging.DEBUG
         else:
@@ -182,20 +186,25 @@ class KegberryApp(object):
         logging.basicConfig(level=level,
             format='%(levelname)-8s: %(message)s')
 
+        if getpass.getuser() == 'root':
+            if not FLAGS.allow_root:
+                print 'Error: Do not run `kegberry` as root or with sudo.'
+                sys.exit(1)
+
         if not extra_argv:
-            self.help('Must give at least one command.', exit=1)
+            self._usage('Must give at least one command.', exit=1)
 
         command = extra_argv[0]
         args = extra_argv[1:]
 
-        command_fn = getattr(self, command)
-        if not command_fn:
-            self.help('Error: command does not exist', exit=1)
+        command_fn = getattr(self, command, None)
+        if not command_fn or command.startswith('_'):
+            self._usage('Error: command does not exist', exit=1)
 
         print_banner()
         command_fn(*args)
 
-    def help(self, error=None, exit=None):
+    def _usage(self, error=None, exit=None):
         """Prints help information."""
         print 'Usage: {} ARGS\n{}\n\n'.format(sys.argv[0], FLAGS)
         if error:
@@ -205,6 +214,7 @@ class KegberryApp(object):
             sys.exit(exit)
 
     def status(self, *args):
+        """Print Kegberry/Kegbot status."""
         status_file = os.path.join(FLAGS.kegberry_home, STATUS_FILENAME)
         print 'App version: {}'.format(get_version())
         if not os.path.exists(status_file):
@@ -224,7 +234,7 @@ class KegberryApp(object):
             ' '.join(REQUIRED_PACKAGES)))
 
     def install(self, *args):
-        """Performs an initial Kegberry install."""
+        """Performs an first-time Kegberry install."""
         self._update_packages()
 
         logger.info('Checking if database exists ...')
@@ -294,9 +304,11 @@ class KegberryApp(object):
         run_command('sudo bash -c "service nginx restart"')
 
     def upgrade(self, *args):
+        """Upgrades an existing Kegbot/Kegberry install."""
         logger.info('Checking for `kegberry` command update')
         output = run_command('sudo bash -c "pip install -U kegberry"')
-        if 'already up-to-date' in output[0]:
+        logger.debug(output)
+        if 'already up-to-date' in output:
             logger.info('Command is already up-to-date.')
         else:
             logger.info('Kegberry command upgraded.')
@@ -304,10 +316,12 @@ class KegberryApp(object):
             return
 
     def kegbot(self, *args):
+        """Runs the `kegbot` command with any additional arguments."""
         cmd = 'kegbot {}'.format(' '.join(args))
         return run_in_virtualenv(cmd, call=True)
 
     def delete(self, *args):
+        """Erases all Kegberry software and user data."""
         confirm = raw_input('REALLY delete all kegberry data? This is irreversible. Type YES: ')
         if confirm.strip() != 'YES':
             print 'Delete aborted.'
