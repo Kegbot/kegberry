@@ -5,6 +5,9 @@
 set -e
 set -x
 
-sudo easy_install-pypy pip
-sudo pip install -U kegberry
+export PATH="$PATH:/usr/lib/pypy-upstream/bin"
+
+sudo PATH=$PATH easy_install-pypy pip
+sudo PATH=$PATH pip install -U kegberry
 kegberry install
+
