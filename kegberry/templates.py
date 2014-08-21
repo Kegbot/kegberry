@@ -48,6 +48,9 @@ server {
     proxy_set_header    X-Forwarded-For         $$proxy_add_x_forwarded_for;
     proxy_set_header    X-Forwarded-Protocol    $$scheme;
     proxy_pass          http://kegbot;
+    proxy_connect_timeout 60s;
+    proxy_read_timeout 120s;
+
   }
 
   location /media/ {
@@ -89,7 +92,7 @@ SUPERVISOR_CONF = Template("""
 programs=gunicorn,celery,kegbot_core,kegboard_daemon
 
 [program:gunicorn]
-command=su -l $USER -c '$HOME_DIR/kb/bin/kegbot run_gunicorn --settings=pykeg.settings -w 1'
+command=su -l $USER -c '$HOME_DIR/kb/bin/kegbot run_gunicorn --settings=pykeg.settings --timeout=120 -w 2'
 directory=$HOME_DIR
 autostart=true
 autorestart=true
