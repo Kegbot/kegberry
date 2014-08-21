@@ -112,7 +112,11 @@ def run_command(cmd, fail_silently=False):
     if FLAGS.fake:
         return 0
     try:
-        return subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
+        path = os.environ['PATH']
+        logger.debug('PATH: {}'.format(path))
+        logger.debug(' CMD: {}'.format(cmd))
+        return subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True,
+            env={'PATH': path})
     except subprocess.CalledProcessError as e:
         if not fail_silently:
             print e.output
@@ -128,10 +132,12 @@ def run_as_kegberry(cmd, **kwargs):
     wrapped = 'sudo su -l {} -c "{}"'.format(FLAGS.kegberry_user, cmd)
     return run_command(wrapped, kwargs)
 
+
 def run_in_virtualenv(cmd, **kwargs):
     virtualenv = os.path.join(FLAGS.kegberry_home, 'kb')
     cmd = '. {}/bin/activate && {}'.format(virtualenv, cmd)
     return run_as_kegberry(cmd, **kwargs)
+
 
 def run_mysql(subcommand, command='mysql', **kwargs):
     cmd = '{} -u {} '.format(command, FLAGS.mysql_user)
@@ -140,10 +146,12 @@ def run_mysql(subcommand, command='mysql', **kwargs):
     cmd += subcommand
     return run_command(cmd, **kwargs)
 
+
 def print_banner():
     version = get_version()
     quote, author = random.choice(QUOTES)
     print BANNER.format(version, quote, author)
+
 
 def write_tempfile(data):
     fd, path = tempfile.mkstemp()
@@ -236,7 +244,12 @@ class KegberryApp(object):
 
         logger.info('Checking/installing virtualenv ...')
         virtualenv = os.path.join(FLAGS.kegberry_home, 'kb')
-        run_as_kegberry('if [ ! -e {} ]; then virtualenv {}; fi'.format(virtualenv, virtualenv))
+        venv = run_command('which virtualenv').strip()
+        if not venv:
+            logger.error('Could not find virtualenv command.')
+            logger.error('PATH: {}'.format(os.envrion['PATH']))
+            sys.exit(1)
+        run_as_kegberry('if [ ! -e {} ]; then {} {}; fi'.format(virtualenv, venv, virtualenv))
 
         logger.info('Installing python packages ...')
         run_in_virtualenv('pip install {} {}'.format(

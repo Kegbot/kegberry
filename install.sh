@@ -8,6 +8,6 @@ set -x
 export PATH="$PATH:/usr/lib/pypy-upstream/bin"
 
 sudo PATH=$PATH easy_install-pypy pip
-sudo PATH=$PATH pip install -U kegberry
+sudo PATH=$PATH pip install -U virtualenv kegberry
 kegberry install
 
