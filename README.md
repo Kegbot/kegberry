@@ -10,7 +10,7 @@ system!
 Impatient? Try this!
 
 ```
-$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/src/install.sh)"
+$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/install.sh)"
 ```
 
 Read on for more detail.
@@ -60,7 +60,7 @@ the moment, Kegberry is just a shortcut.  Consult the
 Connect to your pi and run the following script:
 
 ```
-$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/src/install.sh)"
+$ bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/install.sh)"
 ```
 
 Sit back and relax as [kegbot-server](https://github.com/Kegbot/kegbot-server),

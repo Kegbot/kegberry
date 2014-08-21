@@ -5,6 +5,6 @@
 set -e
 set -x
 
-sudo easy_install-2.7 pip
+sudo easy_install-pypy pip
 sudo pip install -U kegberry
 kegberry install
