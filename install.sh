@@ -5,9 +5,8 @@
 set -e
 set -x
 
-export PATH="$PATH:/usr/lib/pypy-upstream/bin"
-
-sudo PATH=$PATH easy_install-pypy pip
-sudo PATH=$PATH pip install -U virtualenv kegberry
+sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq install python-setuptools"
+sudo easy_install pip
+sudo pip install -U virtualenv
+sudo pip install -U --pre kegberry
 kegberry install
-
