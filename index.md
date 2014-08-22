@@ -48,7 +48,7 @@ image, or install within Raspbian.
 ### Option 1: Flash New Image
 
 Download our
-[customized Raspbian image](https://github.com/Kegbot/kegberry/releases/download/v2.0.0b1/kegberry-2014-08-21.zip),
+[customized Raspbian image](https://github.com/Kegbot/kegberry/releases),
 install it to an new SD card as usual, and navigate to your Pi in your web browser.
 Kegberry is running and ready to go!
 
@@ -70,17 +70,25 @@ depending on your connection speed. Once finished, your system will be online at
 
 ## Help and Support
 
-Check out the [Kegberry Forum](http://forum.kegbot.org/discussions/kegbot-kegberry),
-where you can talk to other users for help and support.
-
-Join the [kegberry-announce](https://groups.google.com/forum/#!forum/kegberry-announce)
-mailing list to be informed of new releases. 
+* Join the [kegberry-announce](https://groups.google.com/forum/#!forum/kegberry-announce)
+  mailing list to be informed of new releases. 
+* Check out the [Kegberry Forum](http://forum.kegbot.org/discussions/kegbot-kegberry),
+  where you can talk to other users for help and support.
+* IRC user? Join us in `#kegbot` on `irc.freenode.net`.
+* Think you've found a software bug? Submit it to the
+  [Kegberry issue tracker](https://github.com/Kegbot/kegberry/issues).
 
 
 ## License and Credit
 
 Kegberry is brought to you by Bevbot LLC, the same team that
-invented [Kegbot](https://kegbot.org/), the original intelligent Kegerator.
+invented [Kegbot](https://kegbot.org/).
 
 Kegberry is licensed under the
 [Apache 2 License](https://github.com/Kegbot/kegberry/blob/master/LICENSE.txt).
+
+Please note, unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
