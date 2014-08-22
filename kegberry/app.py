@@ -259,7 +259,7 @@ class KegberryApp(object):
             pwd.getpwnam(user)
         except KeyError:
             logger.info('User "{}" does not exist, creating ...'.format(user))
-            run_command('sudo useradd -m {}'.format(user))
+            run_command('sudo useradd -G dialout -m {}'.format(user))
 
         logger.info('Checking/installing virtualenv ...')
         virtualenv = os.path.join(FLAGS.kegberry_home, 'kb')
