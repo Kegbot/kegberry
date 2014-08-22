@@ -233,6 +233,9 @@ class KegberryApp(object):
         run_command('sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq install {}"'.format(
             ' '.join(REQUIRED_PACKAGES)))
 
+        logger.info('Cleaning up ...')
+        run_command('sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq clean"')
+
     def install(self, *args):
         """Performs an first-time Kegberry install."""
         self._update_packages()
