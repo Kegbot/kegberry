@@ -84,6 +84,9 @@ QUOTES = (
     ('Beer. Now there\'s a temporary solution.', 'Homer Simpson'),
 )
 
+SERVER_VENV = 'kegbot-server.venv'
+PYCORE_VENV = 'kegbot-pycore.venv'
+
 STATUS_FILENAME = '.kegberry-info.json'
 
 REQUIRED_PACKAGES = (
@@ -143,8 +146,8 @@ def run_as_kegberry(cmd, **kwargs):
     return run_command(wrapped, **kwargs)
 
 
-def run_in_virtualenv(cmd, **kwargs):
-    virtualenv = os.path.join(FLAGS.kegberry_home, 'kb')
+def run_in_virtualenv(venv, cmd, **kwargs):
+    virtualenv = os.path.join(FLAGS.kegberry_home, venv)
     cmd = '. {}/bin/activate && {}'.format(virtualenv, cmd)
     return run_as_kegberry(cmd, **kwargs)
 
@@ -261,18 +264,22 @@ class KegberryApp(object):
             logger.info('User "{}" does not exist, creating ...'.format(user))
             run_command('sudo useradd -G dialout -m {}'.format(user))
 
-        logger.info('Checking/installing virtualenv ...')
-        virtualenv = os.path.join(FLAGS.kegberry_home, 'kb')
-        venv = run_command('which virtualenv').strip()
-        if not venv:
+        venv_cmd = run_command('which virtualenv').strip()
+        if not venv_cmd:
             logger.error('Could not find virtualenv command.')
             logger.error('PATH: {}'.format(os.envrion['PATH']))
             sys.exit(1)
-        run_as_kegberry('if [ ! -e {} ]; then {} {}; fi'.format(virtualenv, venv, virtualenv))
 
-        logger.info('Installing python packages, this may take a while ...')
-        run_in_virtualenv('pip install {} {}'.format(
-            FLAGS.kegbot_server_package, FLAGS.kegbot_pycore_package))
+        for venv_name in (SERVER_VENV, PYCORE_VENV):
+            logger.info('Checking/installing virtualenv "{}"...'.format(venv_name))
+            virtualenv = os.path.join(FLAGS.kegberry_home, venv_name)
+            run_as_kegberry('if [ ! -e {} ]; then {} {}; fi'.format(virtualenv, venv_cmd, virtualenv))
+
+        logger.info('Installing python server packages, this may take a while ...')
+        run_in_virtualenv(SERVER_VENV, 'pip install {}'.format(FLAGS.kegbot_server_package))
+
+        logger.info('Installing pycore packages, this may take a while ...')
+        run_in_virtualenv(PYCORE_VENV, 'pip install {}'.format(FLAGS.kegbot_pycore_package))
 
         logger.info('Installing Kegbot ...')
         cmd = 'setup-kegbot.py --interactive=false --db_type=mysql --db_database="{}"'.format(FLAGS.mysql_database)
@@ -280,10 +287,10 @@ class KegberryApp(object):
         cmd += ' --data_root={}'.format(data_root)
         if FLAGS.mysql_password:
             cmd += ' --db_password="{}"'.format(FLAGS.mysql_password)
-        run_in_virtualenv(cmd)
+        run_in_virtualenv(SERVER_VENV, cmd)
 
         logger.info('Generating API key ...')
-        api_key = run_in_virtualenv('kegbot create_api_key Kegberry')
+        api_key = run_in_virtualenv(SERVER_VENV, 'kegbot create_api_key Kegberry')
 
         api_cfg = "--api_url=http://localhost/api\\n--api_key={}\\n".format(api_key)
         run_as_kegberry('echo -e "{}" > ~/.kegbot/pycore-flags.txt'.format(api_cfg))
@@ -294,6 +301,8 @@ class KegberryApp(object):
             'USER': FLAGS.kegberry_user,
             'HOME_DIR': FLAGS.kegberry_home,
             'DATA_DIR': data_root,
+            'PYCORE_VENV': os.path.join(FLAGS.kegberry_home, PYCORE_VENV),
+            'SERVER_VENV': os.path.join(FLAGS.kegberry_home, SERVER_VENV),
         }
 
         nginx_conf = write_tempfile(templates.NGINX_CONF.substitute(**template_vars))
@@ -312,9 +321,13 @@ class KegberryApp(object):
         output = run_command('sudo bash -c "pip install -U kegberry"')
         logger.debug(output)
         if 'already up-to-date' in output:
-            logger.info('Kegberry command is up-to-date, running kegbot upgrade ...')
-            run_in_virtualenv('pip install -U {}'.format(FLAGS.kegbot_server_package))
-            run_in_virtualenv('pip install -U {}'.format(FLAGS.kegbot_pycore_package))
+            logger.info('Updating kegbot-server distribution ...')
+            run_in_virtualenv(SERVER_VENV, 'pip install -U {}'.format(FLAGS.kegbot_server_package))
+
+            logger.info('Updating kegbot-pycore distribution ...')
+            run_in_virtualenv(PYCORE_VENV, 'pip install -U {}'.format(FLAGS.kegbot_pycore_package))
+
+            logger.info('Running `kegberry kegbot upgrade` ...')
             self.kegbot('upgrade')
 
             logger.info('Restarting services ...')
@@ -329,7 +342,7 @@ class KegberryApp(object):
     def kegbot(self, *args):
         """Runs the `kegbot` command with any additional arguments."""
         cmd = 'kegbot {}'.format(' '.join(args))
-        return run_in_virtualenv(cmd, call=True)
+        return run_in_virtualenv(SERVER_VENV, cmd, call=True)
 
     def delete(self, *args):
         """Erases all Kegberry software and user data."""

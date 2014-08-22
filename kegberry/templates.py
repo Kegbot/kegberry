@@ -18,6 +18,8 @@ from string import Template
 
 # Required variables:
 #  DATA_DIR: Kegbot data directory.
+#  SERVER_VENV: Kegbot-server virtualenv base directory
+#  PYCORE_VENV: Pycore virtualenv base directory.
 #  HOME_DIR: Kegbot user home dir.
 #  USER: Kegbot user.
 
@@ -92,7 +94,7 @@ SUPERVISOR_CONF = Template("""
 programs=gunicorn,celery,kegbot_core,kegboard_daemon
 
 [program:gunicorn]
-command=su -l $USER -c '$HOME_DIR/kb/bin/kegbot run_gunicorn --settings=pykeg.settings --timeout=120 -w 2'
+command=su -l $USER -c '$SERVER_VENV/bin/kegbot run_gunicorn --settings=pykeg.settings --timeout=120 -w 2'
 directory=$HOME_DIR
 autostart=true
 autorestart=true
@@ -100,7 +102,7 @@ redirect_stderr=true
 startsecs=30
 
 [program:celery]
-command=su -l $USER -c 'sleep 10; $HOME_DIR/kb/bin/kegbot run_workers'
+command=su -l $USER -c 'sleep 10; $SERVER_VENV/bin/kegbot run_workers'
 directory=$HOME_DIR
 autostart=true
 autorestart=true
@@ -108,7 +110,7 @@ redirect_stderr=true
 startsecs=40
 
 [program:kegbot_core]
-command=su -l $USER -c 'sleep 15; $HOME_DIR/kb/bin/kegbot_core.py --flagfile=$HOME_DIR/.kegbot/pycore-flags.txt'
+command=su -l $USER -c 'sleep 15; $PYCORE_VENV/bin/kegbot_core.py --flagfile=$HOME_DIR/.kegbot/pycore-flags.txt'
 directory=$HOME_DIR
 autostart=true
 autorestart=true
@@ -116,7 +118,7 @@ redirect_stderr=true
 startsecs=45
 
 [program:kegboard_daemon]
-command=su -l $USER -c 'sleep 20; $HOME_DIR/kb/bin/kegboard_daemon.py'
+command=su -l $USER -c 'sleep 20; $PYCORE_VENV/bin/kegboard_daemon.py'
 directory=$HOME_DIR
 autostart=true
 autorestart=true
