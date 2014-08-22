@@ -41,6 +41,20 @@ we give you the software for free.
 
 ## Installation
 
+It's easy to install Kegberry! You can flash our pre-installed system
+image, or install within Raspbian.
+
+
+### Option 1: Flash New Image
+
+Download our
+[customized Raspbian image](https://github.com/Kegbot/kegberry/releases/download/v2.0.0b1/kegberry-2014-08-21.zip),
+install it to an new SD card as usual, and navigate to your Pi in your web browser.
+Kegberry is running and ready to go!
+
+
+### Option 2: Install Within Raspbian
+
 Run our simple install script on your Raspbian system:
 
 ```
@@ -51,8 +65,7 @@ The installer is fully automatic, and should take about 10-15 minutes to complet
 depending on your connection speed. Once finished, your system will be online at
 **http://your-ip/**
 
-*Problems? We recommend starting with a fresh
-[Raspbian 2014-06-20](http://www.raspberrypi.org/downloads/) image.*
+*Problems? We recommend starting with a fresh image.*
 
 
 ## Help and Support
