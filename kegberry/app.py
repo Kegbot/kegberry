@@ -359,3 +359,16 @@ class KegberryApp(object):
 
         logger.info('Dropping database "{}"'.format(FLAGS.mysql_database))
         run_mysql('-e "drop database {}"'.format(FLAGS.mysql_database))
+
+    def stop(self, *args):
+        logger.info('Stopping services ...')
+        run_command('sudo supervisorctl stop kegbot:*')
+
+    def start(self, *args):
+        logger.info('Starting services ...')
+        run_command('sudo supervisorctl start kegbot:*')
+
+    def restart(self, *args):
+        logger.info('Restarting services ...')
+        run_command('sudo supervisorctl restart kegbot:*')
+
