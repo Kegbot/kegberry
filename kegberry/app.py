@@ -51,7 +51,7 @@ gflags.DEFINE_string('mysql_password', '',
 gflags.DEFINE_boolean('upgrade_system_packages', False,
     'If set, performs "apt-get upgrade" during install/upgrade.')
 
-gflags.DEFINE_string('kegbot_server_package', 'kegbot==1.0.1',
+gflags.DEFINE_string('kegbot_server_package', 'kegbot==1.0.2',
     '(Advanced use only.) Version of Kegbot Server to install.')
 
 gflags.DEFINE_string('kegbot_pycore_package', 'kegbot-pycore==1.1.3',
@@ -309,7 +309,15 @@ class KegberryApp(object):
         output = run_command('sudo bash -c "pip install -U kegberry"')
         logger.debug(output)
         if 'already up-to-date' in output:
-            logger.info('Command is already up-to-date.')
+            logger.info('Kegberry command is up-to-date, running kegbot upgrade ...')
+            run_in_virtualenv('pip install -U {}'.format(FLAGS.kegbot_server_package))
+            run_in_virtualenv('pip install -U {}'.format(FLAGS.kegbot_pycore_package))
+            self.kegbot('upgrade')
+
+            logger.info('Restarting services ...')
+            run_command('sudo supervisorctl restart kegbot:*')
+
+            logger.info('Done!')
         else:
             logger.info('Kegberry command upgraded.')
             logger.info('Please run "kegberry upgrade" again.')
@@ -328,7 +336,7 @@ class KegberryApp(object):
             sys.exit(1)
 
         logger.info('Stopping services ...')
-        run_command('sudo supervisorctl stop all')
+        run_command('sudo supervisorctl stop kegbot:*')
 
         logger.info('Deleting user "{}" ...'.format(FLAGS.kegberry_user))
         run_command('sudo userdel -r -f {}; true'.format(FLAGS.kegberry_user))
