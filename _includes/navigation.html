@@ -2,6 +2,7 @@
 	<button class="dl-trigger">Open Menu</button>
 	<ul class="dl-menu">
 		<li><a href="{{ site.url }}">Home</a></li>
+		{% for link in site.links %}<li>{% if link.external %}<a href="{{ link.url }}" target="_blank">{{ link.title }}</a>{% else %}<a href="{{ site.url }}{{ link.url }}">{{ link.title }}</a>{% endif %}</li>{% endfor %}
 		<li>
 			<a href="#">About</a>
 			<ul class="dl-submenu">
@@ -10,7 +11,7 @@
 					<h4>{{ site.owner.name }}</h4>
 					<p>{{ site.owner.bio }}</p>
 				</li>
-				<li><a href="{{ site.url }}/about/">Learn More</a></li>
+				<li><a href="https://kegbot.org">Learn More</a></li>
 				{% if site.owner.email %}<li>
 					<a href="mailto:{{ site.owner.email }}"><i class="fa fa-envelope"></i> Email</a>
 				</li>{% endif %}
@@ -43,13 +44,13 @@
 				</li>{% endif %}
 			</ul><!-- /.dl-submenu -->
 		</li>
-		<li>
+<!-- 		<li>
 			<a href="#">Posts</a>
 			<ul class="dl-submenu">
 				<li><a href="{{ site.url }}/posts/">All Posts</a></li>
 				<li><a href="{{ site.url }}/tags/">All Tags</a></li>
 			</ul>
 		</li>
-		{% for link in site.links %}<li>{% if link.external %}<a href="{{ link.url }}" target="_blank">{{ link.title }}</a>{% else %}<a href="{{ site.url }}{{ link.url }}">{{ link.title }}</a>{% endif %}</li>{% endfor %}
+ -->		
 	</ul><!-- /.dl-menu -->
 </nav><!-- /.dl-menuwrapper -->

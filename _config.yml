@@ -1,25 +1,21 @@
-title: Kegberry: Turn your Raspberry Pi into a Beer Keg Monitor
+title: "Kegberry: Turn your Raspberry Pi into a Beer Keg Monitor"
 description: Monitor your kegs and create a digital taplist with Kegberry
 disqus_shortname: shortname
 
 # Your site's domain goes here. When working locally use localhost server leave blank
 # PS. If you set this wrong stylesheets and scripts won't load and most links will break.
 # PPS. If you leave it blank for local testing home links won't work, they'll be fine for live domains though.
-url: http://kegberry.github.io
+url: http://kegberry.kegbot.org
 
 # Owner/author information
 owner:
   name: Kegbot
-  avatar: avatar.jpg
+  avatar: kegbot.png
   bio: Bringing intelligence to your taps since 2003.
   email: info@bevbot.com
-  # Social networking links used in footer. Update and remove as you like.
   twitter: http://twitter.com/Kegbot
   facebook: http://facebook.com/Kegbot
   github: http://github.com/Kegbot
-  # For Google Authorship https://plus.google.com/authorship
-  # google plus id, include the '+', eg +mmistakes
-  #google_plus:    +yourid
 
 # Analytics and webmaster tools stuff goes here
 google_analytics:   
@@ -30,13 +26,13 @@ bing_verify:
 # Links to include in top navigation
 # For external links add external: true
 links:
-  - title: Issue Tracker
-    url: https://github.com/Kegbot/kegberry/issues
-    external: true
-  - title: Downloads
-    url: https://github.com/Kegbot/kegberry/releases
-    external: true
-  - title: Kegberry Forum
+  - title: Install
+    url: /install/
+  - title: FAQ
+    url: /faq/
+  - title: Support
+    url: /support/
+  - title: Forum
     url: http://forum.kegbot.org/discussions/kegbot-kegberry
     external: true
 

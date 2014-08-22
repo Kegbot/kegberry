@@ -1,11 +1,12 @@
 ---
 layout: page
 permalink: /
-title: "Kegberry: Raspberry Pi Beer Keg Monitor and Digital Taplist"
-description: Kegberry is a free system that a Raspberry Pi into a digital tap list and beer keg monitor.
+title: "Kegberry: Keg Monitor for Raspberry Pi"
+description: Kegberry turns a Raspberry Pi into a digital tap list and beer keg monitor.
 tags: [Kegberry, Kegbot]
+share: true
 image:
-  feature: abstract-1.jpg
+  feature: bevbot-bubbles-2.jpg
 ---
 
 # Say Hello to Kegberry
@@ -13,19 +14,44 @@ image:
 You've got a Raspberry Pi and you love beer on tap.  Now what? *Make it a
 Kegberry*.
 
+
+<figure>
+  <a href="/images/screenshot-1.jpg" alt="">
+    <img src="/images/screenshot-1.jpg" alt="">
+  </a>
+  <figcaption>
+    <a href="/images/screenshot-1.jpg" title="Kegberry Screenshot #1">
+    Fullscreen mode running on Kegberry</a>.
+  </figcaption>
+</figure>
+
+
 ## What can it do?
 
+* **Unlimited Taps and Kegs.** Whether you have a massive system with
+  dozens of taps, or a simple single-tap kegerator, Kegberry is flexible. 
 * **Keg Volume Monitor.** Want to know what's left?  With a little extra
   hardware, your Kegberry becomes a powerful and battle-tested keg monitor.
 * **Digital Tap List.**  Give your taps an internet presence.  Kegberry's
-  server lets everyone know what's on tap.
+  server lets everyone know what's on tap, and you can show it off 
+  on a TV or HDMI display in spiffy fullscreen mode.
+* **Web-based Manager Interface.** An online admin interface makes it simple
+  to add and change kegs, configure system settings, and download backup
+  data.
 * **Twitter, Untappd, and more.** Links to [Untappd](https://untappd.com/)
   for beverage information; posts to your site's Twitter account when you
   add and remove kegs.
-* **Notification System.** Want to be alerted when the keg is running low,
-  or when someone has started pouring?  No problem; Kegberry does it all.
+* **Notification System.** Receive an e-mail alert when the keg is changed,
+  or when a keg is running low (if you have enabled flow monitoring).
 * **Account System.** Give your friends and family access to your data, and
   enable privacy modes to keep others out.
+* **Powerful API.** Developers can build new applications that communicate
+  with the system using the [Kegbot API](https://kegbot.org/docs/api).
+
+... and much more!
+
+But don't take our words for it: Jump to the [Install Instructions](/install/)
+and try it out for yourself.
 
 <!-- <figure class="half">
   <img src="/images/image-filename-1.jpg" alt="">
@@ -41,42 +67,13 @@ we give you the software for free.
 
 ## Installation
 
-It's easy to install Kegberry! You can flash our pre-installed system
-image, or install within Raspbian.
-
-
-### Option 1: Flash New Image
-
-Download our
-[customized Raspbian image](https://github.com/Kegbot/kegberry/releases),
-install it to an new SD card as usual, and navigate to your Pi in your web browser.
-Kegberry is running and ready to go!
-
-
-### Option 2: Install Within Raspbian
-
-Run our simple install script on your Raspbian system:
-
-```
-bash -c "$(curl -fsSL https://raw.github.com/Kegbot/kegberry/master/install.sh)"
-```
-
-The installer is fully automatic, and should take about 10-15 minutes to complete
-depending on your connection speed. Once finished, your system will be online at
-**http://your-ip/**
-
-*Problems? We recommend starting with a fresh image.*
+It only takes a single command to install Kegberry; you'll be up and running
+in no time.  See the [Install Instructions](/install/) for steps.
 
 
 ## Help and Support
 
-* Join the [kegberry-announce](https://groups.google.com/forum/#!forum/kegberry-announce)
-  mailing list to be informed of new releases. 
-* Check out the [Kegberry Forum](http://forum.kegbot.org/discussions/kegbot-kegberry),
-  where you can talk to other users for help and support.
-* IRC user? Join us in `#kegbot` on `irc.freenode.net`.
-* Think you've found a software bug? Submit it to the
-  [Kegberry issue tracker](https://github.com/Kegbot/kegberry/issues).
+See our [support page](/support/) for help and support resources.
 
 
 ## License and Credit
