@@ -70,21 +70,24 @@ system.
 
 ### Why not use the Raspberry Pi GPIO?
 
-We [will support this soon](https://github.com/Kegbot/kegberry/issues/6),
-but using a [Kegbot Kit](http://store.kegbot.org/products/kegbot-kit) is superior.
+Fear not! We [will support this soon](https://github.com/Kegbot/kegberry/issues/6),
+but using a [Kegbot Kit](http://store.kegbot.org/products/kegbot-kit) is still
+our best recommendations.
 
 We've been doing this for over 10 years and have built Kegbot-style systems
 in almost every way imaginable.  The [Kegbot Kit](http://store.kegbot.org/products/kegbot-kit)
 is the culmination of those many years of research: it's by far the easiest
 way to get started and "just works".
 
-Second, the Kegbot Kit is portable because Kegbot works on lots of systems,
+Second, the Kegbot Kit is portable because Kegbot can work on lots of systems,
 not just Raspberry Pi.  If you find yourself wanting more horsepower one day,
-you can simply plug your Kegboard into any workstation with USB support.
-That's impossible with a Raspberry Pi board.
+you can simply plug your Kegboard into any workstation with USB support,
+or even
+[directly to an Android tablet](https://play.google.com/store/apps/details?id=org.kegbot.app&hl=en).
 
 Finally, we know many of our users are tinkerers, so although we do recommend
-a standard configuration, we've designed the system to be open at *all* levels.
-Using a non-standard controller is only a matter of sending meter data to the 
+a standard configuration, we've designed the system to be open at *all* levels;
+the rest of the system doesn't discriminate. Using a non-standard controller
+is only a matter of sending meter data to the 
 [Kegbot API](https://kegbot.org/docs/api).
 

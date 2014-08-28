@@ -46,16 +46,23 @@ requires some extra hardware.
 
 ### What You Need
 
-To monitor your kegs and taps, you need a
+To monitor your kegs and taps, the fastest and *easiest* option is to grab a
 [Single Tap Kegbot Kit](https://kegbot.org/get-kegbot/kegbot-hardware), which
-includes all the hardware to monitor a single tap.
+includes all the hardware to monitor a single tap. (It also directly helps support
+the project.)
 
 You can get the kit from The Kegbot Store, or on Amazon:
 
 * [Single Tap Kegbot Kit on The Kegbot Store](http://store.kegbot.org/products/kegbot-kit) ($135.99)
 * [Single Tap Kegbot Kit on Amazon](http://amzn.to/1zXDbyO) ($139.99)
 
-*Why not use the Raspberry Pi GPIO? See the [FAQ](/faq/).*
+If you're technically savvy or just want more of an adventure, you can also
+roll your own board using an Arduino; just
+[flash the Kegboard firmware](https://github.com/Kegbot/kegboard) and add any meter you like.  
+
+(We'll soon support monitoring via the Pi GPIO, too;
+[follow GitHub issue #6](https://github.com/Kegbot/kegberry/issues/6) for progress, and see the
+[FAQ](/faq/) for more recommendations.)
 
 
 ### Installing the Kits
