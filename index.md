@@ -56,12 +56,6 @@ Kegberry*.
 But don't take our words for it: Jump to the [Install Instructions](/install/)
 and try it out for yourself.
 
-<!-- <figure class="half">
-  <img src="/images/image-filename-1.jpg" alt="">
-  <img src="/images/image-filename-2.jpg" alt="">
-</figure>
- -->
-
 ## What does it cost?
 
 **It's free!** You provide the Raspberry Pi and optional HDMI display,
@@ -77,6 +71,18 @@ in no time.  See the [Install Instructions](/install/) for steps.
 ## Help and Support
 
 See our [support page](/support/) for help and support resources.
+
+
+## Release History
+
+Check out the [Kegberry release page on GitHub](https://github.com/Kegbot/kegberry/releases).
+
+**Current Version:** 2.0.0b3<br/>
+**Last Updated:** 8/26/2014<br/>
+
+Beta note: Thanks for helping us catch any rough edges while we're in beta!
+Please [get in touch](/support/) or just [open an issue](https://github.com/Kegbot/kegberry/issues)
+if you have any trouble.
 
 
 ## License and Credit
