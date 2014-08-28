@@ -16,13 +16,18 @@ Kegberry*.
 
 
 <figure>
-  <a href="/images/screenshot-1.jpg" alt="">
+  <a href="/images/screenshot-1.jpg" title="Tap status in fullscreen mode.">
     <img src="/images/screenshot-1.jpg" alt="">
   </a>
-  <figcaption>
-    <a href="/images/screenshot-1.jpg" title="Kegberry Screenshot #1">
-    Fullscreen mode running on Kegberry</a>.
-  </figcaption>
+</figure>
+
+<figure class="half">
+  <a href="/images/screenshot-taps-admin.png" title="Tap management interface">
+    <img src="/images/screenshot-taps-admin.png" alt="">
+  </a>
+  <a href="/images/screenshot-kegs-admin.png" title="Keg management interface">
+    <img src="/images/screenshot-kegs-admin.png" alt="">
+  </a>
 </figure>
 
 **Current Version:** 2.0.0b3<br/>
