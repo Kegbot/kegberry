@@ -36,16 +36,17 @@ Kegberry*.
 
 ## What can it do?
 
-* **Unlimited Taps and Kegs.** Whether you have a massive system with
-  dozens of taps, or a simple single-tap kegerator, Kegberry is flexible. 
+* **Manage Your Kegs Online.** An online admin interface makes it simple
+  to add and change kegs, configure system settings, and download backup
+  data.
+* **Comes In All Sizes.** Whether you have a massive system with
+  dozens of taps, or a simple single-tap kegerator, Kegberry is flexible.
+  There's no fixed limit on the number of taps and kegs; it's a database.
 * **Keg Volume Monitor.** Want to know what's left?  With a little extra
   hardware, your Kegberry becomes a powerful and battle-tested keg monitor.
 * **Digital Tap List.**  Give your taps an internet presence.  Kegberry's
   server lets everyone know what's on tap, and you can show it off 
   on a TV or HDMI display in spiffy fullscreen mode.
-* **Web-based Manager Interface.** An online admin interface makes it simple
-  to add and change kegs, configure system settings, and download backup
-  data.
 * **Twitter, Untappd, and more.** Links to [Untappd](https://untappd.com/)
   for beverage information; posts to your site's Twitter account when you
   add and remove kegs.
@@ -59,7 +60,7 @@ Kegberry*.
 ... and much more!
 
 But don't take our words for it: Jump to the [Install Instructions](/install/)
-and try it out for yourself.
+and try it out for yourself (and help us make it even better!)
 
 ## What does it cost?
 
