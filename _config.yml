@@ -18,7 +18,7 @@ owner:
   github: http://github.com/Kegbot
 
 # Analytics and webmaster tools stuff goes here
-google_analytics:   
+google_analytics: UA-42206013-5
 google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:         

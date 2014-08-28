@@ -14,7 +14,7 @@ Raspbian system.
 ## Option 1: Flash New Image
 
 Download our
-[customized Raspbian image](https://github.com/Kegbot/kegberry/releases),
+[customized Raspbian image](https://github.com/Kegbot/kegberry/releases/tag/2.0.0b3),
 install it to an new SD card as usual, and navigate to your Pi in your web browser.
 Kegberry is running and ready to go.
 

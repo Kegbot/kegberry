@@ -25,6 +25,9 @@ Kegberry*.
   </figcaption>
 </figure>
 
+**Current Version:** 2.0.0b3<br/>
+**Last Updated:** 8/26/2014
+
 
 ## What can it do?
 
