@@ -22,6 +22,15 @@ Kegberry*.
 </figure>
 
 <figure class="half">
+  <a href="/images/kegberry-photo.jpg" title="A running system at the kegerator.">
+    <img src="/images/kegberry-photo.jpg" alt="">
+  </a>
+  <a href="/images/installer.jpg" title="Running the installer program.">
+    <img src="/images/installer.jpg" alt="">
+  </a>
+</figure>
+
+<figure class="half">
   <a href="/images/screenshot-taps-admin.png" title="Tap management interface">
     <img src="/images/screenshot-taps-admin.png" alt="">
   </a>
