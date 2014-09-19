@@ -9,4 +9,4 @@ sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get -yq install python-setuptoo
 sudo easy_install pip
 sudo pip install -U virtualenv
 sudo pip install -U --pre kegberry
-kegberry install
+kegberry $INSTALLFLAGS install
