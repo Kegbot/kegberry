@@ -87,8 +87,6 @@ QUOTES = (
 SERVER_VENV = 'kegbot-server.venv'
 PYCORE_VENV = 'kegbot-pycore.venv'
 
-STATUS_FILENAME = '.kegberry-info.json'
-
 REQUIRED_PACKAGES = (
     'nginx-light',
     'libjpeg-dev',
@@ -99,8 +97,6 @@ REQUIRED_PACKAGES = (
     'mysql-server',
     'redis-server',
 )
-
-KEGBOT_VERSION = '1.0.1'
 
 logger = logging.getLogger(__name__)
 
@@ -218,11 +214,7 @@ class KegberryApp(object):
 
     def status(self, *args):
         """Print Kegberry/Kegbot status."""
-        status_file = os.path.join(FLAGS.kegberry_home, STATUS_FILENAME)
         print 'App version: {}'.format(get_version())
-        if not os.path.exists(status_file):
-            print 'Error: Kegberry does not seem to be installed.',
-            print ' (Tried {})'.format(status_file)
 
     def _update_packages(self):
         logger.info('Updating package list ...')
