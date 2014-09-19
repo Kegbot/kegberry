@@ -30,10 +30,12 @@ from kegberry import templates
 
 FLAGS = gflags.FLAGS
 
-gflags.DEFINE_string('kegberry_user', 'kegberry',
+DEFAULT_USER = 'kegberry' if os.path.exists('/home/kegberry') else 'kegbot'
+
+gflags.DEFINE_string('kegbot_user', DEFAULT_USER,
     'The user account which will be used for kegberry files.')
 
-gflags.DEFINE_string('kegberry_home', '/home/kegberry',
+gflags.DEFINE_string('kegbot_home', os.path.join('/home', DEFAULT_USER),
     'Path to the data directory for Kegberry.')
 
 gflags.DEFINE_boolean('verbose', False,
@@ -138,12 +140,12 @@ def run_command(cmd, fail_silently=False, call=False):
 
 def run_as_kegberry(cmd, **kwargs):
     cmd = cmd.replace('"', '\\"')
-    wrapped = 'sudo su -l {} -c "{}"'.format(FLAGS.kegberry_user, cmd)
+    wrapped = 'sudo su -l {} -c "{}"'.format(FLAGS.kegbot_user, cmd)
     return run_command(wrapped, **kwargs)
 
 
 def run_in_virtualenv(venv, cmd, **kwargs):
-    virtualenv = os.path.join(FLAGS.kegberry_home, venv)
+    virtualenv = os.path.join(FLAGS.kegbot_home, venv)
     cmd = '. {}/bin/activate && {}'.format(virtualenv, cmd)
     return run_as_kegberry(cmd, **kwargs)
 
@@ -249,7 +251,7 @@ class KegberryApp(object):
         cmd += ' mysql'
         run_command(cmd)
 
-        user = FLAGS.kegberry_user
+        user = FLAGS.kegbot_user
         try:
             pwd.getpwnam(user)
         except KeyError:
@@ -264,7 +266,7 @@ class KegberryApp(object):
 
         for venv_name in (SERVER_VENV, PYCORE_VENV):
             logger.info('Checking/installing virtualenv "{}"...'.format(venv_name))
-            virtualenv = os.path.join(FLAGS.kegberry_home, venv_name)
+            virtualenv = os.path.join(FLAGS.kegbot_home, venv_name)
             run_as_kegberry('if [ ! -e {} ]; then {} {}; fi'.format(virtualenv, venv_cmd, virtualenv))
 
         logger.info('Installing python server packages, this may take a while ...')
@@ -275,7 +277,7 @@ class KegberryApp(object):
 
         logger.info('Installing Kegbot ...')
         cmd = 'setup-kegbot.py --interactive=false --db_type=mysql --db_database="{}"'.format(FLAGS.mysql_database)
-        data_root = os.path.join(FLAGS.kegberry_home, 'kegbot-data')
+        data_root = os.path.join(FLAGS.kegbot_home, 'kegbot-data')
         cmd += ' --data_root={}'.format(data_root)
         if FLAGS.mysql_password:
             cmd += ' --db_password="{}"'.format(FLAGS.mysql_password)
@@ -290,11 +292,11 @@ class KegberryApp(object):
 
         logger.info('Installing config files ...')
         template_vars = {
-            'USER': FLAGS.kegberry_user,
-            'HOME_DIR': FLAGS.kegberry_home,
+            'USER': FLAGS.kegbot_user,
+            'HOME_DIR': FLAGS.kegbot_home,
             'DATA_DIR': data_root,
-            'PYCORE_VENV': os.path.join(FLAGS.kegberry_home, PYCORE_VENV),
-            'SERVER_VENV': os.path.join(FLAGS.kegberry_home, SERVER_VENV),
+            'PYCORE_VENV': os.path.join(FLAGS.kegbot_home, PYCORE_VENV),
+            'SERVER_VENV': os.path.join(FLAGS.kegbot_home, SERVER_VENV),
         }
 
         nginx_conf = write_tempfile(templates.NGINX_CONF.substitute(**template_vars))
@@ -338,7 +340,7 @@ class KegberryApp(object):
 
     def delete(self, *args):
         """Erases all Kegberry software and user data."""
-        confirm = raw_input('REALLY delete all kegberry data? This is irreversible. Type YES: ')
+        confirm = raw_input('REALLY delete all Kegbot data? This is irreversible. Type YES: ')
         if confirm.strip() != 'YES':
             print 'Delete aborted.'
             sys.exit(1)
@@ -346,8 +348,8 @@ class KegberryApp(object):
         logger.info('Stopping services ...')
         run_command('sudo supervisorctl stop kegbot:*')
 
-        logger.info('Deleting user "{}" ...'.format(FLAGS.kegberry_user))
-        run_command('sudo userdel -r -f {}; true'.format(FLAGS.kegberry_user))
+        logger.info('Deleting user "{}" ...'.format(FLAGS.kegbot_user))
+        run_command('sudo userdel -r -f {}; true'.format(FLAGS.kegbot_user))
 
         logger.info('Dropping database "{}"'.format(FLAGS.mysql_database))
         run_mysql('-e "drop database {}"'.format(FLAGS.mysql_database))
