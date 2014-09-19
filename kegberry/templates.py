@@ -126,3 +126,27 @@ redirect_stderr=true
 startsecs=50
 
 """)
+
+SUPERVISOR_CONF_NO_PYCORE = Template("""
+### Supervisor.conf for Kegbot -- Kegberry edition.
+
+[group:kegbot]
+programs=gunicorn,celery
+
+[program:gunicorn]
+command=su -l $USER -c '$SERVER_VENV/bin/kegbot run_gunicorn --settings=pykeg.settings --timeout=120 -w 2'
+directory=$HOME_DIR
+autostart=true
+autorestart=true
+redirect_stderr=true
+startsecs=30
+
+[program:celery]
+command=su -l $USER -c 'sleep 10; $SERVER_VENV/bin/kegbot run_workers'
+directory=$HOME_DIR
+autostart=true
+autorestart=true
+redirect_stderr=true
+startsecs=40
+
+""")

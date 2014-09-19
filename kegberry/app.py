@@ -38,6 +38,9 @@ gflags.DEFINE_string('kegbot_user', DEFAULT_USER,
 gflags.DEFINE_string('kegbot_home', os.path.join('/home', DEFAULT_USER),
     'Path to the data directory for Kegberry.')
 
+gflags.DEFINE_boolean('pycore', True,
+    'Whether to install pycore along with server.')
+
 gflags.DEFINE_boolean('verbose', False,
     'Log extra stuff.')
 
@@ -264,7 +267,11 @@ class KegberryApp(object):
             logger.error('PATH: {}'.format(os.envrion['PATH']))
             sys.exit(1)
 
-        for venv_name in (SERVER_VENV, PYCORE_VENV):
+        venvs = (SERVER_VENV,)
+        if FLAGS.pycore:
+            venvs += (PYCORE_VENV,)
+
+        for venv_name in venvs:
             logger.info('Checking/installing virtualenv "{}"...'.format(venv_name))
             virtualenv = os.path.join(FLAGS.kegbot_home, venv_name)
             run_as_kegberry('if [ ! -e {} ]; then {} {}; fi'.format(virtualenv, venv_cmd, virtualenv))
@@ -272,8 +279,9 @@ class KegberryApp(object):
         logger.info('Installing python server packages, this may take a while ...')
         run_in_virtualenv(SERVER_VENV, 'pip install {}'.format(FLAGS.kegbot_server_package))
 
-        logger.info('Installing pycore packages, this may take a while ...')
-        run_in_virtualenv(PYCORE_VENV, 'pip install {}'.format(FLAGS.kegbot_pycore_package))
+        if FLAGS.pycore:
+            logger.info('Installing pycore packages, this may take a while ...')
+            run_in_virtualenv(PYCORE_VENV, 'pip install {}'.format(FLAGS.kegbot_pycore_package))
 
         logger.info('Installing Kegbot ...')
         cmd = 'setup-kegbot.py --interactive=false --db_type=mysql --db_database="{}"'.format(FLAGS.mysql_database)
@@ -302,7 +310,8 @@ class KegberryApp(object):
         nginx_conf = write_tempfile(templates.NGINX_CONF.substitute(**template_vars))
         run_command('sudo bash -c "mv {} /etc/nginx/sites-available/default"'.format(nginx_conf))
 
-        supervisor_conf = write_tempfile(templates.SUPERVISOR_CONF.substitute(**template_vars))
+        supervisor_tmpl = templates.SUPERVISOR_CONF if FLAGS.pycore else templates.SUPERVISOR_CONF_NO_PYCORE
+        supervisor_conf = write_tempfile(supervisor_tmpl.substitute(**template_vars))
         run_command('sudo bash -c "mv {} /etc/supervisor/conf.d/kegbot.conf"'.format(supervisor_conf))
 
         logger.info('Reloading daemons ...')
@@ -318,8 +327,9 @@ class KegberryApp(object):
             logger.info('Updating kegbot-server distribution ...')
             run_in_virtualenv(SERVER_VENV, 'pip install -U {}'.format(FLAGS.kegbot_server_package))
 
-            logger.info('Updating kegbot-pycore distribution ...')
-            run_in_virtualenv(PYCORE_VENV, 'pip install -U {}'.format(FLAGS.kegbot_pycore_package))
+            if FLAGS.pycore:
+                logger.info('Updating kegbot-pycore distribution ...')
+                run_in_virtualenv(PYCORE_VENV, 'pip install -U {}'.format(FLAGS.kegbot_pycore_package))
 
             logger.info('Running `kegberry kegbot upgrade` ...')
             self.kegbot('upgrade')
