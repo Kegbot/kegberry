@@ -33,7 +33,7 @@ links:
   - title: Support
     url: /support/
   - title: Forum
-    url: http://forum.kegbot.org/discussions/kegbot-kegberry
+    url: https://forum.kegbot.org/category/kegberry
     external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones

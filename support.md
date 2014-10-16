@@ -7,7 +7,7 @@ image:
 ---
 
 Need help with your Kegberry install? The best place to start is the
-[Kegberry Forum](http://forum.kegbot.org/discussions/kegbot-kegberry), where you
+[Kegberry Forum](https://forum.kegbot.org/category/kegberry), where you
 can connect with other users. We're also [on Twitter](http://twitter.com/Kegbot)
 for your tweet-sized questions.
 
