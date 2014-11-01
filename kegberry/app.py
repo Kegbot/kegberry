@@ -93,6 +93,7 @@ SERVER_VENV = 'kegbot-server.venv'
 PYCORE_VENV = 'kegbot-pycore.venv'
 
 REQUIRED_PACKAGES = (
+    'build-essential',
     'nginx-light',
     'libjpeg-dev',
     'supervisor',
