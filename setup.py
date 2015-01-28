@@ -9,7 +9,7 @@ project home page at kegberry.com.
 
 from setuptools import setup, find_packages
 
-VERSION = '2.0.0'
+VERSION = '2.1.0'
 DOCLINES = __doc__.split('\n')
 
 SHORT_DESCRIPTION = DOCLINES[0]
