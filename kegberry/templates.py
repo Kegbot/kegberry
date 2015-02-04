@@ -94,7 +94,7 @@ SUPERVISOR_CONF = Template("""
 programs=gunicorn,celery,kegbot_core,kegboard_daemon
 
 [program:gunicorn]
-command=su -l $USER -c '$SERVER_VENV/bin/kegbot run_gunicorn --settings=pykeg.settings --timeout=120 -w 2'
+command=su -l $USER -c '$SERVER_VENV/bin/gunicorn pykeg.web.wsgi:application --timeout=120 -w 2'
 directory=$HOME_DIR
 autostart=true
 autorestart=true
