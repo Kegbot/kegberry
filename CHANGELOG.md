@@ -3,6 +3,11 @@
 Join the [kegberry-announce](https://groups.google.com/forum/#!forum/kegberry-announce)
 mailing list to be informed of new releases.
 
+## 2.1.1 (2015-02-03)
+
+- Fixed supervisor.conf
+
+
 ## 2.1.0 (2015-01-27)
 
 - Upgraded `kegbot-server` to version 1.2.3
