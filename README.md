@@ -10,6 +10,13 @@ system and digital tap list!
 
 **Please see instructions at [kegberry.com](http://kegberry.com).**
 
+Quickstart:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kegbot/kegberry/master/install.sh)"
+```
+
+
 
 ## License and Copyright
 
