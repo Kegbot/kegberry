@@ -4,8 +4,7 @@
 
 set -e
 
-COMPOSE_TEMPLATE="
-version: '3.0'
+COMPOSE_TEMPLATE="version: '3.0'
 
 services:
   kegbot:
@@ -32,7 +31,7 @@ services:
       KEGBOT_DEBUG: 'true'
 
   mysql:
-    image: linuxserver/mariadb:latest
+    image: yobasystems/alpine-mariadb:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'changeme'
@@ -41,6 +40,7 @@ services:
       MYSQL_DATABASE: 'kegbot_dev'
     volumes:
       - _mysql_data_dir_:/var/lib/mysql
+    entrypoint: /scripts/run.sh --innodb_file_format=Barracuda --innodb_default_row_format=DYNAMIC --innodb_large_prefix=ON
 
   redis:
     image: redis:latest
@@ -215,6 +215,9 @@ do_install() {
     echo -e "${COMPOSE_TEMPLATE}" > ${DOCKER_COMPOSE_FILE}
     sed -i -e "s%_kegbot_data_dir_%${KEGBOT_DATA_DIR}%" ${DOCKER_COMPOSE_FILE}
     sed -i -e "s%_mysql_data_dir_%${MYSQL_DATA_DIR}%" ${DOCKER_COMPOSE_FILE}
+
+    log "Fetching images ..."
+    docker-compose -f ${DOCKER_COMPOSE_FILE} pull
 
     log "Done!"
     echo ""
