@@ -9,26 +9,37 @@ COMPOSE_TEMPLATE="version: '3.0'
 services:
   kegbot:
     image: kegbot/server:latest
+    restart: always
     ports:
       - '8000:8000'
     volumes:
       - _kegbot_data_dir_:/kegbot-data
+    tmpfs:
+      - /tmp
+      - /var/tmp
     environment:
       KEGBOT_REDIS_URL: 'redis://redis:6379/0'
       KEGBOT_DATABASE_URL: 'mysql://kegbot_dev:changeme@mysql/kegbot_dev'
       KEGBOT_SETUP_ENABLED: 'true'
       KEGBOT_DEBUG: 'true'
+      KEGBOT_SECRET_KEY: '_kegbot_secret_key_'
+      KEGBOT_INSECURE_SHARED_API_KEY: '_kegbot_insecure_shared_api_key_'
 
   workers:
     image: kegbot/server:latest
+    restart: always
     command: bin/kegbot run_workers
     volumes:
       - _kegbot_data_dir_:/kegbot-data
+    tmpfs:
+      - /tmp
+      - /var/tmp
     environment:
       KEGBOT_REDIS_URL: redis://redis:6379/0
       KEGBOT_DATABASE_URL: mysql://kegbot_dev:changeme@mysql/kegbot_dev
       KEGBOT_SETUP_ENABLED: 'true'
       KEGBOT_DEBUG: 'true'
+      KEGBOT_SECRET_KEY: '_kegbot_secret_key_'
 
   mysql:
     image: yobasystems/alpine-mariadb:latest
@@ -38,6 +49,9 @@ services:
       MYSQL_USER: 'kegbot_dev'
       MYSQL_PASSWORD: 'changeme'
       MYSQL_DATABASE: 'kegbot_dev'
+    tmpfs:
+      - /tmp
+      - /var/tmp
     volumes:
       - _mysql_data_dir_:/var/lib/mysql
     entrypoint: /scripts/run.sh --innodb_file_format=Barracuda --innodb_default_row_format=DYNAMIC --innodb_large_prefix=ON
@@ -45,6 +59,30 @@ services:
   redis:
     image: redis:latest
     restart: always
+
+  pycore:
+    image: kegbot/pycore:latest
+    restart: always
+    tmpfs:
+      - /tmp
+      - /var/tmp
+    environment:
+      KEGBOT_REDIS_URL: redis://redis:6379/0
+      KEGBOT_API_KEY: '_kegbot_insecure_shared_api_key_'
+      KEGBOT_API_URL: 'http://kegbot:8000/api/'
+
+  kegboard:
+    image: kegbot/pycore:latest
+    restart: always
+    command: bin/kegboard_daemon.py --kegboard_device=/dev/ttyACM0
+    tmpfs:
+      - /tmp
+      - /var/tmp
+    environment:
+      KEGBOT_REDIS_URL: redis://redis:6379/0
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/bus/usb:/dev/bus/usb
 
 volumes:
   mysql-data:
@@ -198,6 +236,9 @@ setup_vars() {
                 ;;
         esac
     fi
+
+    KEGBOT_SECRET_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+    KEGBOT_INSECURE_SHARED_API_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 }
 
 do_install() {
@@ -215,6 +256,8 @@ do_install() {
     echo -e "${COMPOSE_TEMPLATE}" > ${DOCKER_COMPOSE_FILE}
     sed -i -e "s%_kegbot_data_dir_%${KEGBOT_DATA_DIR}%" ${DOCKER_COMPOSE_FILE}
     sed -i -e "s%_mysql_data_dir_%${MYSQL_DATA_DIR}%" ${DOCKER_COMPOSE_FILE}
+    sed -i -e "s%_kegbot_secret_key_%${KEGBOT_SECRET_KEY}%" ${DOCKER_COMPOSE_FILE}
+    sed -i -e "s%_kegbot_insecure_shared_api_key_%${KEGBOT_INSECURE_SHARED_API_KEY}%" ${DOCKER_COMPOSE_FILE}
 
     log "Fetching images ..."
     docker-compose -f ${DOCKER_COMPOSE_FILE} pull
