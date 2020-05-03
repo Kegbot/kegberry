@@ -1,39 +1,58 @@
-# Kegberry: Complete Beer Tap Monitoring for Raspberry Pi
+# Kegberry: Complete Beer Tap Monitoring and Display for Raspberry Pi
 
-Kegberry turns your Raspberry Pi into an complete beer tap monitoring
-system and digital tap list!
+You've got a Raspberry Pi and you love beer on tap.  Now what? *Make it a
+Kegberry*.
 
-**Main Repository:** https://github.com/Kegbot/kegberry
+## What can it do?
+
+* **Keg Volume Monitor.** Want to know what's left?  With a little extra
+  hardware, your Kegberry becomes a powerful and battle-tested keg monitor.
+* **Digital Tap List.**  Give your taps an internet presence.  Kegberry's
+  server lets everyone know what's on tap.
+* **Notification System.** Want to be alerted when the keg is running low,
+  or when someone has started pouring?  No problem; Kegberry does it all.
+* **Account System.** Give your friends and family access to your data, and
+  enable privacy modes to keep others out.
+
+... and much more.
 
 
-## Getting Started
+## What does it cost?
 
-**Please see instructions at [kegberry.com](http://kegberry.com).**
+**It's free!** You provide the Raspberry Pi and optional HDMI display,
+we give you the software for free.
 
-Quickstart:
+
+## Get Started
+
+For a quick start, run our simple install script by pasting the following
+command into your Raspbian system:
+
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kegbot/kegberry/master/install.sh)"
 ```
 
+The installer will guide you through the next steps.
+
+
+## Help & Next Steps
+
+Have questions, need help, or want to show off your build? Visit the
+[Kegbot Project Forum](https://forum.kegbot.org).
+
+
+## Open Source: Powered by Kegbot
+
+Kegberry is brought to you by the same team that
+invented [Kegbot](https://kegbot.org/), the original intelligent Kegerator.
+
+Under the hood, Kegberry is built around
+[Kegbot Server](https://github.com/Kegbot/kegbot-server), a mature, heavily
+tested keg monitoring and management server.
 
 
 ## License and Copyright
 
-All code and documentation are Copyright 2014 Bevbot LLC, unless
-otherwise noted.
-
-Code is licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0),
-or in the file `LICENSE.txt`.
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-"Kegberry", "Kegbot", and the Kegbot logo are trademarks of Bevbot LLC;
-please don't reuse them without our permission.
+All code is offered under the **MIT** license, unless otherwise noted.  Please
+see `LICENSE.txt` for the full license.
