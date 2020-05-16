@@ -42,7 +42,7 @@ services:
       KEGBOT_SECRET_KEY: '_kegbot_secret_key_'
 
   mysql:
-    image: jruzia/kegberry-mariadb:latest
+    image: kegbot/mariadb:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'changeme'
@@ -54,7 +54,6 @@ services:
       - /var/tmp
     volumes:
       - _mysql_data_dir_:/var/lib/mysql
-    entrypoint: /scripts/entrypoint.sh
 
   redis:
     image: redis:latest
